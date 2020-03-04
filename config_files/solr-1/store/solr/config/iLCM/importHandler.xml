@@ -1,0 +1,31 @@
+<dataConfig>
+  <dataSource type="JdbcDataSource" 
+              driver="org.mariadb.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/ilcm" 
+              user="root" 
+              password="ilcm"/>
+  <document>
+    <entity name="id"
+            query="select * FROM documents" deltaImportQuery="SELECT * FROM documents WHERE id = '${dih.delta.id}'"  deltaQuery="SELECT  id FROM documents WHERE last_modified &gt;  '${dih.last_index_time}'" >
+      <field column="id_doc" name="id_doc_i" meta="true"/>
+	<field column="dataset" name="dataset_s" meta="true"/>
+        <field column="title" name="title_txt" meta="true"/>
+	<field column="date" name="date_dt" meta="true"/>
+        <field column="token" name="token_i" meta="true"/>	
+        <field column="body" name="body_txt_en_noStemming"/>
+        <field column="body" name="body_txt"/>
+	<field column="mde1" name="mde1_ss" meta="true"/>
+	<field column="mde2" name="mde2_ss" meta="true"/>
+	<field column="mde3" name="mde3_ss" meta="true"/>
+	<field column="mde4" name="mde4_ss" meta="true"/>
+	<field column="mde5" name="mde5_ss" meta="true"/>
+	<field column="mde6" name="mde6_ss" meta="true"/>
+	<field column="mde7" name="mde7_ss" meta="true"/>
+	<field column="mde8" name="mde8_ss" meta="true"/>
+	<field column="mde9" name="mde9_ss" meta="true"/>
+        <field column="language" name="language_s" meta="true"/>
+	<field column="entities" name="entities_txt_en_noStemming"/>
+	<field column="collections" name="collections" type="commaDelimited" multiValued="true"/>
+    </entity>  
+  </document>
+</dataConfig>
