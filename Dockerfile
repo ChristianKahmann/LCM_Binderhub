@@ -105,7 +105,8 @@ RUN mkdir /home/jovyan/iLCM/mysql/ && \
     cp -r /var/lib/mysql/* /home/jovyan/iLCM/mysql/ && \
     chown -R jovyan /home/jovyan/iLCM/mysql  && \
     mkdir /home/jovyan/iLCM/solr/ && \
-    chown -R jovyan /home/jovyan/iLCM/solr
+    chown -R jovyan /home/jovyan/iLCM/solr \
+    && cp /config_files/config_file.R /home/jovyan/iLCM/config_file.R
 
 
 # Clean up
@@ -122,7 +123,7 @@ RUN cp /config_files/my.cnf /etc/mysql/my.cnf \
     && rm /home/jovyan/solr-7.7.2.tgz 
 
 RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('stringi')"    
-
+RUN R -e "install.packages('https://cran.r-project.org/src/contrib/Archive/shiny/shiny_1.3.2.tar.gz', repos=NULL, type='source')"
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
 
