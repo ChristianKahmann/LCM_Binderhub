@@ -82,3 +82,6 @@ install.packages('mice')
 devtools::install_github('dustinfife/fifer')
 install.packages('https://cran.r-project.org/src/contrib/Archive/future/future_1.8.1.tar.gz', repos=NULL, type='source') 
 install.packages('networkD3')
+install.packages('stringi')    
+install.packages('https://cran.r-project.org/src/contrib/Archive/shiny/shiny_1.3.2.tar.gz', repos=NULL, type='source')
+
