@@ -24,15 +24,16 @@ RUN pip install --no-cache-dir https://github.com/jupyterhub/jupyter-server-prox
     R --quiet -e "chooseCRANmirror(31,graphics=F);install.packages('devtools')" && \
     R --quiet -e "devtools::install_github('IRkernel/IRkernel', ref='0.8.11')" && \
     R --quiet -e "IRkernel::installspec(prefix='$NB_PYTHON_PREFIX')" && \
-    R --quiet -e "install.packages('https://cran.r-project.org/src/contrib/Archive/shiny/shiny_1.3.2.tar.gz', repos=NULL, type='source')" && \
-    echo "options(repos = c(CRAN='https://mran.microsoft.com/snapshot/2019-04-10'), download.file.method = 'libcurl')" > /etc/R/Rprofile.site && \
+    R --quiet -e "install.packages('https://cran.r-project.org/src/contrib/Archive/shiny/shiny_1.3.2.tar.gz', repos=NULL, type='source')" 
+
+USER root    
+RUN echo "options(repos = c(CRAN='https://mran.microsoft.com/snapshot/2019-04-10'), download.file.method = 'libcurl')" > /etc/R/Rprofile.site && \
     install -o ${NB_USER} -d /var/log/shiny-server && \
     install -o ${NB_USER} -d /var/lib/shiny-server && \
     install -o ${NB_USER}  /dev/null /var/log/shiny-server.log && \
     install -o ${NB_USER}  /dev/null /var/run/shiny-server.pid
 
 # Install System Libraries
-USER root
 RUN apt-get update \
   && apt-get install -y apt-utils \
      software-properties-common \
