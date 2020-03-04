@@ -125,7 +125,13 @@ RUN cp /config_files/my.cnf /etc/mysql/my.cnf \
 RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('stringi')"    
 RUN R -e "install.packages('https://cran.r-project.org/src/contrib/Archive/shiny/shiny_1.3.2.tar.gz', repos=NULL, type='source')"
 
-RUN chmod -R 777 /var/log/shiny-server/
+RUN chown -R ${NB_USER} ${HOME}
+RUN echo "options(repos = c(CRAN='https://mran.microsoft.com/snapshot/2019-04-10'), download.file.method = 'libcurl')" > /etc/R/Rprofile.site && \
+    install -o ${NB_USER} -d /var/log/shiny-server && \
+    install -o ${NB_USER} -d /var/lib/shiny-server && \
+    install -o ${NB_USER}  /dev/null /var/log/shiny-server.log && \
+    install -o ${NB_USER}  /dev/null /var/run/shiny-server.pid
+
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
 
