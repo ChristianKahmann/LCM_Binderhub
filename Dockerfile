@@ -123,7 +123,9 @@ RUN cp /config_files/my.cnf /etc/mysql/my.cnf \
     && rm /home/jovyan/solr-7.7.2.tgz 
 
 RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('stringi')"    
-#RUN R -e "install.packages('https://cran.r-project.org/src/contrib/Archive/shiny/shiny_1.3.2.tar.gz', repos=NULL, type='source')"
+RUN R -e "install.packages('https://cran.r-project.org/src/contrib/Archive/shiny/shiny_1.3.2.tar.gz', repos=NULL, type='source')"
+
+RUN chmod -R 777 /var/log/shiny-server/
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
 
