@@ -30,6 +30,6 @@
 
 set -e
 /opt/solr/bin/solr start  
-/usr/bin/mysqld & sleep 2s
+mysqld &
 /opt/solr/bin/solr create_core -c iLCM -p 8983 -d /store/solr/config/iLCM & sleep 2s
 exec "$@"
