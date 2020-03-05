@@ -62,12 +62,13 @@ RUN apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.as
     && add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirrors.supportex.net/mariadb/repo/10.3/ubuntu bionic main'\
     && apt-get update \
     && apt-get install -y mariadb-server mariadb-client
+USER $NB_USER    
 RUN /usr/bin/mysqld_safe --basedir=/usr & \
     sleep 3s \
     && mysql --user=root --password= < /config_files/init_iLCM.sql \
     && mysqladmin shutdown --password=ilcm
 
-
+USER root
 # Install solr
 Run apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0xB1998361219BD9C9 \
     && echo "deb http://repos.azulsystems.com/debian stable main" | sudo tee /etc/apt/sources.list.d/zulu.list \
