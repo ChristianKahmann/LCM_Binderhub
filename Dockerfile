@@ -114,7 +114,7 @@ RUN mkdir /home/jovyan/iLCM/mysql/ && \
     chown -R jovyan /home/jovyan/iLCM/solr \
     && cp /config_files/config_file.R /home/jovyan/iLCM/config_file.R
 
-
+  
 # Clean up
 RUN cp /config_files/my.cnf /etc/mysql/my.cnf \
     && chmod -R 777 /var/lib/mysql \
