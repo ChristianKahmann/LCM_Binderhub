@@ -128,6 +128,8 @@ RUN cp /config_files/my.cnf /etc/mysql/my.cnf \
     && rm /home/jovyan/install_solr_service.sh \
     && rm /home/jovyan/solr-7.7.2.tgz 
 
+COPY Workshop /home/jovyan/Workshop
+
 
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
