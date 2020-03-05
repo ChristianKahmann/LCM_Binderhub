@@ -119,6 +119,7 @@ RUN mkdir /home/jovyan/iLCM/mysql/ && \
 RUN cp /config_files/my.cnf /etc/mysql/my.cnf \
     && chmod -R 777 /var/lib/mysql \
     && chmod -R 777 /var/log/mysql \
+    && chmod -R 777 /home/jovyan/iLCM/mysql \
     && chmod -R 777 /var/run/mysqld \
     && chown -R jovyan /opt/solr/ \
     && apt-get autoclean -y \
