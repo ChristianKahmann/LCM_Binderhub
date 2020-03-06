@@ -109,8 +109,8 @@ RUN chmod -R 777 /var/run/mysqld
 USER $NB_USER    
 RUN mysqld & \
     sleep 3s \
-    && mysql --user=root --password= < /config_files/init_iLCM.sql \
-    && mysqladmin shutdown --password=ilcm
+RUN  mysql --user=root --password= < /config_files/init_iLCM.sql 
+RUN mysqladmin shutdown --password=ilcm
 
 
 # make solr and maridb use directory in jovyan home
