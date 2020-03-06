@@ -101,7 +101,10 @@ RUN git clone https://github.com/ChristianKahmann/ilcm_Shiny \
     && mv ilcm_Shiny/ /home/jovyan/iLCM \
     && chmod -R 777 /home/jovyan/iLCM
 
-USER root    
+USER root
+RUN chmod -R 777 /usr/bin/mysqld_safe
+RUN chmod -R 777 /var/run/mysqld
+USER $NB_USER    
 RUN /usr/bin/mysqld_safe --basedir=/usr & \
     sleep 3s \
     && mysql --user=root --password= < /config_files/init_iLCM.sql \
