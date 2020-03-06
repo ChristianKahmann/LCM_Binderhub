@@ -107,7 +107,7 @@ RUN mkdir /var/run/mysqld
 
 RUN chmod -R 777 /var/run/mysqld
 USER $NB_USER    
-RUN /usr/bin/mysqld_safe --basedir=/usr & \
+RUN /usr/bin/mysqld & \
     sleep 3s \
     && mysql --user=root --password= < /config_files/init_iLCM.sql \
     && mysqladmin shutdown --password=ilcm
