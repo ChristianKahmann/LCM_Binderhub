@@ -101,7 +101,7 @@ RUN git clone https://github.com/ChristianKahmann/ilcm_Shiny \
     && mv ilcm_Shiny/ /home/jovyan/iLCM \
     && chmod -R 777 /home/jovyan/iLCM
 
-USER $NB_USER    
+USER root    
 RUN /usr/bin/mysqld_safe --basedir=/usr & \
     sleep 3s \
     && mysql --user=root --password= < /config_files/init_iLCM.sql \
@@ -109,7 +109,6 @@ RUN /usr/bin/mysqld_safe --basedir=/usr & \
 
 
 # make solr and maridb use directory in jovyan home
-USER root
 RUN mkdir /home/jovyan/iLCM/mysql/ && \
     cp -r /var/lib/mysql/* /home/jovyan/iLCM/mysql/ && \
     chown -R jovyan /home/jovyan/iLCM/mysql  && \
