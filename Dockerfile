@@ -133,6 +133,7 @@ RUN cp /config_files/my.cnf /etc/mysql/my.cnf \
 
 # Add Workshop Materials
 COPY Workshop/ /home/jovyan/Workshop
+RUN chmod -R 777 /home/jovyan/Workshop
 
 
 COPY docker-entrypoint.sh /
