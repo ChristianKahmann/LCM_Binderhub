@@ -103,7 +103,7 @@ RUN git clone https://github.com/ChristianKahmann/ilcm_Shiny \
 
 USER root
 RUN chmod -R 777 /usr/bin/mysqld_safe
-RUN mkdir /var/run/mysqld
+RUN mkdir /var/run/mysqld &
 RUN chmod -R 777 /var/lib/mysql
 RUN chmod -R 777 /var/run/mysqld
 USER $NB_USER    
