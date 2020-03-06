@@ -62,12 +62,9 @@ RUN apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.as
     && add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirrors.supportex.net/mariadb/repo/10.3/ubuntu bionic main'\
     && apt-get update \
     && apt-get install -y mariadb-server mariadb-client
-RUN /usr/bin/mysqld_safe --basedir=/usr & \
-    sleep 3s \
-    && mysql --user=root --password= < /config_files/init_iLCM.sql \
-    && mysqladmin shutdown --password=ilcm
 
 
+USER root
 # Install solr
 Run apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0xB1998361219BD9C9 \
     && echo "deb http://repos.azulsystems.com/debian stable main" | sudo tee /etc/apt/sources.list.d/zulu.list \
@@ -104,9 +101,14 @@ RUN git clone https://github.com/ChristianKahmann/ilcm_Shiny \
     && mv ilcm_Shiny/ /home/jovyan/iLCM \
     && chmod -R 777 /home/jovyan/iLCM
 
+USER root    
+RUN /usr/bin/mysqld_safe --basedir=/usr & \
+    sleep 3s \
+    && mysql --user=root --password= < /config_files/init_iLCM.sql \
+    && mysqladmin shutdown --password=ilcm
+
 
 # make solr and maridb use directory in jovyan home
-USER root
 RUN mkdir /home/jovyan/iLCM/mysql/ && \
     cp -r /var/lib/mysql/* /home/jovyan/iLCM/mysql/ && \
     chown -R jovyan /home/jovyan/iLCM/mysql  && \
@@ -115,6 +117,7 @@ RUN mkdir /home/jovyan/iLCM/mysql/ && \
     && cp /config_files/config_file.R /home/jovyan/iLCM/config_file.R
 
 
+  
 # Clean up
 RUN cp /config_files/my.cnf /etc/mysql/my.cnf \
     && chmod -R 777 /var/lib/mysql \
@@ -128,7 +131,8 @@ RUN cp /config_files/my.cnf /etc/mysql/my.cnf \
     && rm /home/jovyan/install_solr_service.sh \
     && rm /home/jovyan/solr-7.7.2.tgz 
 
-COPY Workshop /home/jovyan/Workshop
+# Add Workshop Materials
+COPY Workshop/ /home/jovyan/Workshop
 
 
 COPY docker-entrypoint.sh /
