@@ -84,4 +84,4 @@ install.packages('https://cran.r-project.org/src/contrib/Archive/future/future_1
 install.packages('networkD3')
 install.packages('stringi')    
 install.packages('https://cran.r-project.org/src/contrib/Archive/shiny/shiny_1.3.2.tar.gz', repos=NULL, type='source')
-
+install.packages("lsa")

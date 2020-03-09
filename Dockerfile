@@ -111,7 +111,7 @@ RUN /usr/bin/mysqld_safe --basedir=/usr & \
 # make solr and maridb use directory in jovyan home
 RUN mkdir /home/jovyan/iLCM/mysql/ && \
     cp -r /var/lib/mysql/* /home/jovyan/iLCM/mysql/ && \
-    chown -R jovyan /home/jovyan/iLCM/mysql  && \
+    chown -R jovyan /home/jovyan/iLCM/mysql  && \ 
     mkdir /home/jovyan/iLCM/solr/ && \
     chown -R jovyan /home/jovyan/iLCM/solr \
     && cp /config_files/config_file.R /home/jovyan/iLCM/config_file.R
