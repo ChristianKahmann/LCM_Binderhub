@@ -87,3 +87,5 @@ install.packages('https://cran.r-project.org/src/contrib/Archive/shiny/shiny_1.3
 install.packages("lsa")
 install.packages("plot3D")
 install.pacakges("gtools")
+install.packages("LiblineaR")
+install.packages("SparseM")
