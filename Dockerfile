@@ -132,16 +132,15 @@ RUN cp /config_files/my.cnf /etc/mysql/my.cnf \
     && rm /home/jovyan/solr-7.7.2.tgz 
 
 # Add Workshop Materials
-RUN echo "test"
 COPY Workshop/ /home/jovyan/Workshop
 RUN chmod -R 777 /home/jovyan/Workshop 
-#    && cd /home/jovyan/Workshop \
-#    && cat tempfile.part.00 tempfile.part.01 tempfile.part.02 > token_movies_56.csv \
-#    && rm temp* \
-#    && mv movies.csv /home/jovyan/iLCM/data_import/unprocessed_data/ \
-#    && mv meta_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ \
-#    && mv token_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ \
-#    && mv metameta_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ 
+    && cd /home/jovyan/Workshop \
+    && cat tempfile.part.00 tempfile.part.01 tempfile.part.02 > token_movies_56.csv \
+    && rm temp* \
+    && mv movies.csv /home/jovyan/iLCM/data_import/unprocessed_data/ \
+    && mv meta_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ \
+    && mv token_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ \
+    && mv metameta_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ 
 
 
 COPY docker-entrypoint.sh /
