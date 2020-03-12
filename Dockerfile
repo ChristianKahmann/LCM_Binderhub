@@ -133,10 +133,11 @@ RUN cp /config_files/my.cnf /etc/mysql/my.cnf \
 
 # Add Workshop Materials
 COPY Workshop/ /home/jovyan/Workshop
-RUN chmod -R 777 /home/jovyan/Workshop \
-    && cd /home/jovyan/Workshop \
-    && cat tempfile.part.00 tempfile.part.01 tempfile.part.02 > token_movies_56.csv \
-    && rm temp* 
+RUN chmod -R 777 /home/jovyan/Workshop 
+#
+#    && cd /home/jovyan/Workshop \
+#    && cat tempfile.part.00 tempfile.part.01 tempfile.part.02 > token_movies_56.csv \
+#    && rm temp* 
  #   && mv movies.csv /home/jovyan/iLCM/data_import/unprocessed_data/ \
 #    && mv meta_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ \
  #   && mv token_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ \
