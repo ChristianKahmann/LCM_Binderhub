@@ -132,6 +132,7 @@ RUN cp /config_files/my.cnf /etc/mysql/my.cnf \
     && rm /home/jovyan/solr-7.7.2.tgz 
 
 # Add Workshop Materials
+RUN echo "test"
 COPY Workshop/ /home/jovyan/Workshop
 RUN chmod -R 777 /home/jovyan/Workshop 
 #
