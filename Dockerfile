@@ -140,7 +140,8 @@ RUN chmod -R 777 /home/jovyan/Workshop \
     && mv movies.csv /home/jovyan/iLCM/data_import/unprocessed_data/ \
     && mv meta_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ \
     && mv token_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ \
-    && mv metameta_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ 
+    && mv metameta_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ \
+    && mv names.txt /home/jovyan/iLCM/collections/blacklists/
 
 
 COPY docker-entrypoint.sh /
