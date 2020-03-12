@@ -140,10 +140,8 @@ RUN chmod -R 777 /home/jovyan/Workshop \
     && mv movies.csv /home/jovyan/iLCM/data_import/unprocessed_data/ \
     && mv meta_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ \
     && mv token_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ \
-    && mv metameta_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ \
-    && rm meta_movies_56.csv \
-    && rm metameta_movies_56.csv \
-    && rm token_movies_56.csv
+    && mv metameta_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ 
+
 
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
