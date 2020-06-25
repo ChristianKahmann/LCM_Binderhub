@@ -55,7 +55,7 @@ RUN apt-get update \
 # Copy Config Files
 ADD config_files /config_files
 Run cp /config_files/shiny-server.conf /etc/shiny-server/
-
+Run cp -r /config_files/refi /opt/conda/lib/R/library/
 
 # Install MariaDB
 RUN apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc' \
@@ -71,9 +71,9 @@ Run apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0xB1998361
     && apt-get update \
     && apt -y install zulu-11 \
     && export JAVA_HOME=/usr/lib/jvm/zulu-11/ \
-    && wget http://www-eu.apache.org/dist/lucene/solr/7.7.2/solr-7.7.2.tgz \
-    && tar xzf solr-7.7.2.tgz solr-7.7.2/bin/install_solr_service.sh --strip-components=2 \
-    && bash ./install_solr_service.sh solr-7.7.2.tgz \
+    && wget http://www-eu.apache.org/dist/lucene/solr/7.7.3/solr-7.7.3.tgz \
+    && tar xzf solr-7.7.3.tgz solr-7.7.3/bin/install_solr_service.sh --strip-components=2 \
+    && bash ./install_solr_service.sh solr-7.7.3.tgz \
     && cp -r /config_files/solr-1/logs /opt/logs \
     && cp -r /config_files/solr-1/store /store \
     && cp -r /config_files/solr-1/docker-entrypoint-initdb.d /docker-entrypoint-initdb.d
@@ -94,7 +94,26 @@ RUN apt install -y r-cran-curl
 RUN conda install -c conda-forge r-pdftools
 USER $NB_USER
 RUN Rscript /config_files/install.R
+RUN Rscript /config_files/install2.R
+#RUN R -e "chooseCRANmirror(31,graphics=F)"
+#RUN R -e "install.packages('https://cran.r-project.org/src/contrib/Archive/foreign/foreign_0.8-71.tar.gz',repos=NULL,type='source')"
+#RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('gridExtra')" 
+#RUN R -e "install.packages('https://cloud.r-project.org/src/contrib/viridis_0.5.1.tar.gz',repos=NULL,type='source')"
+#RUN R -e "install.packages('https://cloud.r-project.org/src/contrib/Hmisc_4.4-0.tar.gz',repos=NULL,type='source')"
 
+#RUN R -e "Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = TRUE);devtools::install_github('dustinfife/fifer')"
+#RUN R -e "install.packages('https://cran.r-project.org/src/contrib/Archive/future/future_1.8.1.tar.gz', repos=NULL, type='source')"
+#RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('networkD3')"
+#RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('stringi')"    
+#RUN R -e "install.packages('https://cran.r-project.org/src/contrib/Archive/shiny/shiny_1.3.2.tar.gz', repos=NULL, type='source')"
+#RUN R -e "chooseCRANmirror(31,graphics=F);install.packages("lsa")"
+#RUN R -e "chooseCRANmirror(31,graphics=F);install.packages("plot3D")"
+#RUN R -e "chooseCRANmirror(31,graphics=F);install.packages("gtools")"
+#RUN R -e "chooseCRANmirror(31,graphics=F);install.packages("LiblineaR")"
+#RUN R -e "chooseCRANmirror(31,graphics=F);install.packages("SparseM")"
+RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('dendextend')"
+RUN R -e "install.packages('https://cran.r-project.org/src/contrib/Archive/d3heatmap/d3heatmap_0.6.1.2.tar.gz', repos=NULL, type='source')"
+RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('zip')"
 
 # Get latest Version of LCM Shiny Application from github
 RUN git clone https://github.com/ChristianKahmann/ilcm_Shiny \
@@ -129,18 +148,18 @@ RUN cp /config_files/my.cnf /etc/mysql/my.cnf \
     && apt-get clean -y \
     && conda clean -a -y \
     && rm /home/jovyan/install_solr_service.sh \
-    && rm /home/jovyan/solr-7.7.2.tgz 
+    && rm /home/jovyan/solr-7.7.3.tgz 
 
 # Add Workshop Materials
 COPY Workshop/ /home/jovyan/Workshop
 RUN chmod -R 777 /home/jovyan/Workshop \
     && cd /home/jovyan/Workshop \
-    && cat tempfile.part.00 tempfile.part.01 tempfile.part.02 > token_movies_56.csv \
+    && cat tempfile.part.00 tempfile.part.01 tempfile.part.02 > token_movies_1.csv \
     && rm temp* \
     && mv movies.csv /home/jovyan/iLCM/data_import/unprocessed_data/ \
-    && mv meta_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ \
-    && mv token_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ \
-    && mv metameta_movies_56.csv /home/jovyan/iLCM/data_import/processed_data/ \
+    && mv meta_movies_1.csv /home/jovyan/iLCM/data_import/processed_data/ \
+    && mv token_movies_1.csv /home/jovyan/iLCM/data_import/processed_data/ \
+    && mv metameta_movies_1.csv /home/jovyan/iLCM/data_import/processed_data/ \
     && mv names.txt /home/jovyan/iLCM/collections/blacklists/
 
 
