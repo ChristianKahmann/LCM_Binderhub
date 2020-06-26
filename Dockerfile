@@ -65,15 +65,15 @@ RUN apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.as
 
 
 USER root
-# Install solr
+#Install solr
 Run apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0xB1998361219BD9C9 \
     && echo "deb http://repos.azulsystems.com/debian stable main" | sudo tee /etc/apt/sources.list.d/zulu.list \
     && apt-get update \
     && apt -y install zulu-11 \
     && export JAVA_HOME=/usr/lib/jvm/zulu-11/ \
-    && wget http://www-eu.apache.org/dist/lucene/solr/7.7.2/solr-7.7.2.tgz \
-    && tar xzf solr-7.7.2.tgz solr-7.7.2/bin/install_solr_service.sh --strip-components=2 \
-    && bash ./install_solr_service.sh solr-7.7.2.tgz \
+    && wget http://www-eu.apache.org/dist/lucene/solr/7.7.3/solr-7.7.3.tgz \
+    && tar xzf solr-7.7.3.tgz solr-7.7.3/bin/install_solr_service.sh --strip-components=2 \
+    && bash ./install_solr_service.sh solr-7.7.3.tgz \
     && cp -r /config_files/solr-1/logs /opt/logs \
     && cp -r /config_files/solr-1/store /store \
     && cp -r /config_files/solr-1/docker-entrypoint-initdb.d /docker-entrypoint-initdb.d
@@ -116,7 +116,15 @@ RUN mkdir /home/jovyan/iLCM/mysql/ && \
     chown -R jovyan /home/jovyan/iLCM/solr \
     && cp /config_files/config_file.R /home/jovyan/iLCM/config_file.R
 
-
+# Add Example_Data 
+RUN chmod -R 777 /home/jovyan/Example_Data \
+    && cd /home/jovyan/Example_Data \
+    && cat tempfile.part.00 tempfile.part.01 tempfile.part.02 > token_movies_1.csv \
+    && rm temp* \
+    && mv meta_movies_1.csv /home/jovyan/iLCM/data_import/processed_data/ \
+    && mv token_movies_1.csv /home/jovyan/iLCM/data_import/processed_data/ \
+    && mv metameta_movies_1.csv /home/jovyan/iLCM/data_import/processed_data/ \
+    && mv names.txt /home/jovyan/iLCM/collections/blacklists/
   
 # Clean up
 RUN cp /config_files/my.cnf /etc/mysql/my.cnf \
@@ -129,7 +137,7 @@ RUN cp /config_files/my.cnf /etc/mysql/my.cnf \
     && apt-get clean -y \
     && conda clean -a -y \
     && rm /home/jovyan/install_solr_service.sh \
-    && rm /home/jovyan/solr-7.7.2.tgz 
+    && rm /home/jovyan/solr-7.7.3.tgz 
 
 
 COPY docker-entrypoint.sh /
