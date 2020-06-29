@@ -54,7 +54,8 @@ RUN apt-get update \
 
 # Copy Config Files
 ADD config_files /config_files
-Run cp /config_files/shiny-server.conf /etc/shiny-server/
+Run cp /config_files/shiny-server.conf /etc/shiny-server/ \
+    &&  cp -r /config_files/refi /opt/conda/lib/R/library/
 
 
 # Install MariaDB
@@ -117,6 +118,7 @@ RUN mkdir /home/jovyan/iLCM/mysql/ && \
     && cp /config_files/config_file.R /home/jovyan/iLCM/config_file.R
 
 # Add Example_Data 
+COPY Example_Data/ /home/jovyan/Example_Data
 RUN chmod -R 777 /home/jovyan/Example_Data \
     && cd /home/jovyan/Example_Data \
     && cat tempfile.part.00 tempfile.part.01 tempfile.part.02 > token_movies_1.csv \
@@ -137,7 +139,8 @@ RUN cp /config_files/my.cnf /etc/mysql/my.cnf \
     && apt-get clean -y \
     && conda clean -a -y \
     && rm /home/jovyan/install_solr_service.sh \
-    && rm /home/jovyan/solr-7.7.3.tgz 
+    && rm /home/jovyan/solr-7.7.3.tgz \
+    && rm /home/jovyan/Example_Data/config_file.R
 
 
 COPY docker-entrypoint.sh /
