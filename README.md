@@ -1,4 +1,4 @@
-[![Binder](https://notebooks.gesis.org/binder/badge_logo.svg)](https://notebooks.gesis.org/binder/v2/gh/ChristianKahmann/LCM_Binderhub)
+[![Binder](https://notebooks.gesis.org/binder/badge_logo.svg)](https://notebooks.gesis.org/binder/v2/gh/ChristianKahmann/LCM_Binderhub/master)
 
 # iLCM Binderhub
 Create a Jupyterhub instance with the iLCM Application integrated
